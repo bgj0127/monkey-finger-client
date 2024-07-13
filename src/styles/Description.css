@@ -17,7 +17,15 @@ h1, h2{
     justify-content: space-around;
     width: 50rem;
     height: 15rem;
-    margin: 10rem auto 0;
+    margin: 5rem auto 0;
+    overflow-y: inherit;
+}
+
+#chart{
+    display: flex;
+    justify-content: center;
+    height: 15rem;
+    margin: 5rem auto 0;
     overflow-y: inherit;
 }
 
