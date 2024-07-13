@@ -23,8 +23,9 @@ h1, h2{
 
 #chart{
     display: flex;
-    justify-content: center;
-    height: 15rem;
+    justify-content: space-around;
+    min-width: 100%;
+    min-height: 15rem;
     margin: 5rem auto 0;
     overflow-y: inherit;
 }
@@ -44,6 +45,13 @@ h1, h2{
 .p-bold{
     font-size: 6rem;
     text-align: center;
+}
+
+.p-bold:hover{
+    transform: scale(1.1);
+    transition: ease-in 0.05s;
+    cursor: pointer;
+    user-select: none;
 }
 
 #profile {

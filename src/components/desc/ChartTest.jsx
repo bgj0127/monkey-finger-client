@@ -6,6 +6,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
 } from "chart.js";
 import dummyData from "../../constants/dummyData";
 
@@ -14,6 +15,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Tooltip
 );
 
@@ -29,7 +31,7 @@ const data = {
     {
       type: "scatter",
       label: "Dataset 1",
-      borderColor: "#aaa112",
+      borderColor: ["#aaa112", "#b24a11"],
       borderWidth: 2,
       data: dummyData,
       lineTension: 0.3,
@@ -45,10 +47,13 @@ const options = {
         display: false,
       },
     },
+    y: {
+      beginAtZero: false,
+    },
   },
 };
 
-const ChartTest = () => {
+const ChartTest = ({ dataType }) => {
   return (
     <>
       <div>
@@ -58,6 +63,7 @@ const ChartTest = () => {
           width="400px"
           height="400px"
         ></Chart>
+        <p>{dataType}</p>
       </div>
     </>
   );

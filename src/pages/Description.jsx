@@ -14,9 +14,9 @@ const Description = () => {
       </div>
       <Divider />
       <div id="chart">
-        <ChartTest />
-        <ChartTest />
-        <ChartTest />
+        <ChartTest dataType="wpm" />
+        <ChartTest dataType="acc" />
+        <ChartTest dataType="wpm" />
       </div>
     </div>
   );
