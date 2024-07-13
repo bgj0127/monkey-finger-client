@@ -1,0 +1,50 @@
+#desc-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+}
+
+h1, h2{
+    font-family: 'D2Coding-bold';
+    margin: 0;
+}
+
+#intro{
+    display: flex;
+    justify-content: space-around;
+    width: 50rem;
+    height: 15rem;
+    margin: 10rem auto 0;
+    overflow-y: inherit;
+}
+
+#desc{
+    width: 30rem;
+    word-break: keep-all;
+    font-size: small;
+}
+
+.imgContainer{
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.p-bold{
+    font-size: 6rem;
+    text-align: center;
+}
+
+#profile {
+    width: 100%;
+}
+
+#vertical-divider{
+    margin-top: 0.5rem;
+    width: 100vw;
+    height: 1px;
+    background-color: #C7A26B;
+}
