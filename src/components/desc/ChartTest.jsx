@@ -7,6 +7,7 @@ import {
   PointElement,
   LineElement,
   BarElement,
+  plugins,
 } from "chart.js";
 import dummyData from "../../constants/dummyData";
 import { atom, useRecoilState } from "recoil";
@@ -18,6 +19,7 @@ ChartJS.register(
   LineElement,
   BarElement,
   Tooltip
+  // plugins
 );
 
 function makeArr(i, j) {
@@ -38,11 +40,30 @@ const data = {
       data: dummyData,
       lineTension: 0.3,
     },
+    {
+      type: "line",
+      label: "Avg",
+      data: [
+        { x: 1, y: 100 },
+        { x: 5, y: 102 },
+        { x: 10, y: 98 },
+        { x: 15, y: 110 },
+      ],
+      tension: 0.5,
+    },
   ],
 };
 
 const options = {
   responsive: false,
+  interaction: {
+    mode: "nearest",
+  },
+  elements: {
+    point: {
+      pointStyle: "crossRot",
+    },
+  },
   scales: {
     x: {
       grid: {
@@ -54,18 +75,10 @@ const options = {
 
 const ChartTest = ({ dataType }) => {
   return (
-    <>
-      <div>
-        <p>{dataType}</p>
-
-        <Chart
-          data={data}
-          options={options}
-          width="500px"
-          height="350px"
-        ></Chart>
-      </div>
-    </>
+    <div id="chart-item">
+      <p className="chart-title">{dataType}</p>
+      <Chart data={data} options={options} width="500px" height="350px"></Chart>
+    </div>
   );
 };
 
