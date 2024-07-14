@@ -9,6 +9,7 @@ import {
   BarElement,
 } from "chart.js";
 import dummyData from "../../constants/dummyData";
+import { atom, useRecoilState } from "recoil";
 
 ChartJS.register(
   CategoryScale,
@@ -31,7 +32,8 @@ const data = {
     {
       type: "scatter",
       label: "Dataset 1",
-      borderColor: ["#aaa112", "#b24a11"],
+      borderColor: ["#372A15"],
+      backgroundColor: "#372A15",
       borderWidth: 2,
       data: dummyData,
       lineTension: 0.3,
@@ -47,9 +49,6 @@ const options = {
         display: false,
       },
     },
-    y: {
-      beginAtZero: false,
-    },
   },
 };
 
@@ -57,13 +56,14 @@ const ChartTest = ({ dataType }) => {
   return (
     <>
       <div>
+        <p>{dataType}</p>
+
         <Chart
           data={data}
           options={options}
-          width="400px"
-          height="400px"
+          width="500px"
+          height="350px"
         ></Chart>
-        <p>{dataType}</p>
       </div>
     </>
   );

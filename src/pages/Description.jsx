@@ -16,7 +16,6 @@ const Description = () => {
       <div id="chart">
         <ChartTest dataType="wpm" />
         <ChartTest dataType="acc" />
-        <ChartTest dataType="wpm" />
       </div>
     </div>
   );
