@@ -1,11 +1,4 @@
-import { useState } from "react";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
+import { RecoilRoot } from "recoil";
 import Description from "./pages/Description";
 import "./styles/App.css";
 
