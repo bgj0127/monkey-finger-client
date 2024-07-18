@@ -85,6 +85,14 @@ const ChartComponent = ({ dataType }) => {
     ],
   });
   useEffect(() => {
+    function getAvg(d) {
+      let l = [];
+      for (let i = 0; i <= d.length + 1; i += 5) {
+        let tmp = d.slice(i, i + 5).reduce((p, c) => p + c, 0) / d.slice(i, i + 5).length;
+        l.push({ x: i, y: tmp });
+      }
+      return l;
+    }
     setChartInfo({
       labels: makeArr(1, initial["wpm"]?.length ?? 10),
 
@@ -92,28 +100,47 @@ const ChartComponent = ({ dataType }) => {
         {
           type: "scatter",
           label: "Word Per Minute",
-          // borderColor: "#372A15",
           backgroundColor: "rgba(55, 42, 21, 0.7)",
           borderWidth: 3,
           data: initial["wpm"],
           lineTension: 0.3,
         },
         {
+          type: "line",
+          label: "avg",
+          backgroundColor: "rgba(55, 42, 21, 0.5)",
+          borderColor: "rgba(55, 42, 21, 0.5",
+          borderWidth: 5,
+          data: getAvg(initial["wpm"] ?? []),
+          lineTension: 0.5,
+          pointStyle: false,
+        },
+        {
           type: "scatter",
           label: "Accuracy",
           yAxisID: "ACC",
-          // borderColor: "rgba(141, 73, 58)",
           backgroundColor: "rgba(141, 73, 58, 0.7)",
           borderWidth: 3,
           data: initial["acc"],
           lineTension: 0.3,
+          pointStyle: "triangle",
+        },
+        {
+          type: "line",
+          label: "avg",
+          yAxisID: "ACC",
+          backgroundColor: "rgba(141, 73, 58, 0.7)",
+          borderColor: "rgba(141, 73, 58, 0.7)",
+          borderWidth: 3,
+          data: getAvg(initial["acc"] ?? []),
+          lineTension: 0.3,
+          pointStyle: false,
         },
       ],
     });
   }, [initial]);
   return (
     <div id="chart-item">
-      {/* <p className="chart-title">{dataType}</p> */}
       <Chart data={chartInfo} options={options} width="1000px" height="600px"></Chart>
     </div>
   );
