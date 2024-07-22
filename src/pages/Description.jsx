@@ -9,16 +9,20 @@ import { useEffect } from "react";
 import axios from "axios";
 import { apiURL } from "../services/url";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { initialData } from "../recoil/atoms";
+import { currentFilter, initialData } from "../recoil/atoms";
 
 const Description = () => {
   const setInitialData = useSetRecoilState(initialData);
+  const setcurrentFilter = useSetRecoilState(currentFilter);
+
   useEffect(() => {
     async function fetchData() {
       await axios.get(apiURL + "/default").then((res) => {
         setInitialData(res.data);
       });
     }
+    setcurrentFilter({ language: "all", mode: "all" });
+
     fetchData();
   });
 
@@ -31,7 +35,7 @@ const Description = () => {
       <Divider />
       <Filter />
       <div id="chart-container">
-        <ChartComponent dataType="타자속도" />
+        <ChartComponent />
       </div>
     </div>
   );

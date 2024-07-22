@@ -6,3 +6,11 @@ export const initialData = atom({
     value: {},
   },
 });
+
+export const currentFilter = atom({
+  key: "currentFilter",
+  default: {
+    language: "",
+    mode: "",
+  },
+});

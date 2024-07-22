@@ -1,4 +1,4 @@
-#desc-wrap{
+#desc-wrap {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -7,12 +7,12 @@
     overflow-x: hidden;
 }
 
-h1, h2{
+h1, h2 {
     font-family: 'D2Coding-bold';
     margin: 0;
 }
 
-#intro-container{
+#intro-container {
     display: flex;
     justify-content: space-around;
     width: 50rem;
@@ -20,47 +20,48 @@ h1, h2{
     margin: 8rem auto 0;
 }
 
-#chart-container{
+#chart-container {
     display: flex;
-    justify-content: space-between;
     min-width: 65rem;
+    min-height: 630px;
     margin-bottom: 5rem;
 }
 
-#chart-item{
+#chart-item {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    min-height: 100% !important;
     padding: 0.5rem;
     border-radius: 1rem;
-    background-color: #e6d2b2;
 }
 
-.chart-title{
+.chart-title {
     font-family: "D2Coding-Regular";
     /* font-size: larger; */
     margin: 0;
 }
 
-#desc{
+#desc {
     width: 30rem;
     word-break: keep-all;
     font-size: small;
 }
 
-.imgContainer{
+.imgContainer {
     height: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
 }
 
-.p-bold{
+.p-bold {
     font-size: 6rem;
     text-align: center;
 }
 
-.p-bold:hover{
+.p-bold:hover {
     transform: scale(1.1);
     transition: ease-in 0.05s;
     cursor: pointer;
@@ -71,26 +72,27 @@ h1, h2{
     width: 100%;
 }
 
-#vertical-divider{
+#vertical-divider {
     margin: 0.5rem;
     width: 100vw;
-    min-height: 1px !important; 
+    min-height: 1px !important;
     background-color: #C7A26B;
 }
 
-#filter-wrap{
+#filter-wrap {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     min-width: 65rem;
     margin: 1rem 0;
+    margin-top: 3rem;
     min-height: 4rem !important;
 }
 
 
-.filter-text{
-    display:flexbox;
+.filter-text {
+    display: flexbox;
     min-width: 1rem;
     height: 2.4rem;
     color: #60432F;

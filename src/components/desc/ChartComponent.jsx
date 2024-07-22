@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { initialData } from "../../recoil/atoms";
+import NoData from "../NoData";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Tooltip);
 
@@ -67,7 +68,7 @@ const options = {
   },
 };
 
-const ChartComponent = ({ dataType }) => {
+const ChartComponent = () => {
   const initial = useRecoilValue(initialData);
 
   const [chartInfo, setChartInfo] = useState({
@@ -141,7 +142,7 @@ const ChartComponent = ({ dataType }) => {
   }, [initial]);
   return (
     <div id="chart-item">
-      <Chart data={chartInfo} options={options} width="1000px" height="600px"></Chart>
+      {initial.wpm?.length ? <Chart data={chartInfo} options={options} width="1000px" height="600px" /> : <NoData />}
     </div>
   );
 };
