@@ -1,19 +1,9 @@
-@font-face {
-  font-family: "D2Coding-Regular";
-  font-weight:normal;
-  src: url("../assets/D2Coding-Ver1.3.2-20180524-all.ttc") format("truetype");
-}
+@import url("https://statics.goorm.io/fonts/GoormSans/v1.0.0/GoormSans.min.css");
 
-@font-face {
-  font-family: "D2Coding-Bold";
-  font-weight: bold;
-  src: url("../assets/D2CodingBold-Ver1.3.2-20180524-ligature.ttf") format("truetype");
-}
 
 :root {
-  font-family: "D2Coding-Regular", "D2Coding-Bold";
+  font-family: "Goorm Sans";
   line-height: 1.5;
-  font-weight: 400;
 
   color-scheme: light dark;
   color: #372A15;
@@ -58,6 +48,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   background-color: #cab595;
 }

@@ -7,8 +7,8 @@
     overflow-x: hidden;
 }
 
-h1, h2 {
-    font-family: 'D2Coding-bold';
+h1, h3 {
+    font-weight: 700;
     margin: 0;
 }
 
@@ -39,7 +39,7 @@ h1, h2 {
 }
 
 .chart-title {
-    font-family: "D2Coding-Regular";
+    /* font-family: "D2Coding-Regular"; */
     /* font-size: larger; */
     margin: 0;
 }
