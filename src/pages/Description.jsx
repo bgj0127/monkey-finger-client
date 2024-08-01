@@ -1,4 +1,3 @@
-import React from "react";
 import Introduce from "../components/desc/Introduce";
 import MyProfile from "../components/desc/MyProfile";
 import ChartComponent from "../components/desc/ChartComponent";

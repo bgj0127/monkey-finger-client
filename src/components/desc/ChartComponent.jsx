@@ -1,7 +1,7 @@
 import { Chart } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Legend } from "chart.js";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { initialData, isHover, mouseXY, pointData } from "../../recoil/atoms";
 import NoData from "../NoData";
 import TooltipBox from "../TooltipBox";

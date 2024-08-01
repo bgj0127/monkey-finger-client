@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import { mouseXY, isHover, pointData } from "../recoil/atoms";
 import "../styles/TooltipBox.css";
