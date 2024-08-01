@@ -5,6 +5,7 @@
     align-items: center;
     /* min-height: 120vh; */
     overflow-x: hidden;
+    /* overflow-y: hidden; */
 }
 
 h1, h3 {
@@ -32,8 +33,9 @@ h1, h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 120%;
     min-height: 100% !important;
+    overflow-y: hidden;
     padding: 0.5rem;
     border-radius: 1rem;
 }

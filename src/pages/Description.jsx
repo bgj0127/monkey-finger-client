@@ -8,7 +8,7 @@ import Filter from "../components/desc/Filter";
 import { useEffect } from "react";
 import axios from "axios";
 import { apiURL } from "../services/url";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { currentFilter, initialData } from "../recoil/atoms";
 
 const Description = () => {
@@ -37,6 +37,7 @@ const Description = () => {
       <div id="chart-container">
         <ChartComponent />
       </div>
+      <div style={{ marginBottom: "5rem" }}></div>
     </div>
   );
 };
