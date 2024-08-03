@@ -6,17 +6,19 @@ import { apiURL } from "../../services/url";
 import "../../styles/Search.css";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { typingAvg, typingData } from "../../recoil/atoms";
+import { ReactTyped } from "react-typed";
 
 const Filter = () => {
   // const setInitialData = useSetRecoilState(initialData);
   // const [file, setFile] = useState();
   const language = ["korean", "english"];
-  const mode = ["time", "words", "zen", "custom"];
+  const mode = ["time", "words", "quote", "zen", "custom"];
   const [lanFilter, setLanFilter] = useState(language);
   const [modeFilter, setModeFilter] = useState(mode);
   const [typing, setTypingData] = useRecoilState(typingData);
   const avg = useRecoilValue(typingAvg);
-
+  const [monkey, setMonkey] = useState({});
+  const [adviceText, setAdviceText] = useState("");
   // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
   const filterSetter = (d, setD, t) => {
     if (d.includes(t)) {
@@ -39,8 +41,8 @@ const Filter = () => {
   };
 
   const advice = () => {
+    setAdviceText("");
     const getData = async () => {
-      console.log(avg);
       await axios
         .post(
           "https://api.openai.com/v1/chat/completions",
@@ -49,25 +51,25 @@ const Filter = () => {
             messages: [
               {
                 role: "system",
-                content: `타자연습 결과를 분석해서 객체 형태로 반환해줘. 말투는 친절하게
-            {
-            "wpm": 108, 
-            "acc": 94, 
-            "eval": { 
-            "speed": "", 
-            "acc": "" 
-            }, 
-            "recommend": { 
-            "maintain": "",
-             "improve": "" ,
-            "encourage":""
-            }
-             } 이 형식이야`,
+                content: `타자연습 결과를 분석해서 문자열을 객체 형태로 반환. 이모지 필수. 모든 값은 존재해야함. 한국어 번역.
+             {
+              "wpm": , 
+              "acc": ,       
+              "eval": { 
+                "speed": ,  
+                "acc":    
+              }, 
+              "recommend": { 
+                "maintain": ,
+                "improve": ,     
+                "encourage": 
+              }
+            }`,
               },
               { role: "user", content: `${avg.wpmAvg}wpm, ${avg.accAvg}acc` },
             ],
             temperature: 1.3,
-            max_tokens: 256,
+            max_tokens: 512,
           },
           {
             headers: {
@@ -77,8 +79,9 @@ const Filter = () => {
           }
         )
         .then((res) => {
-          console.log(res.choices[0].message.content);
-        });
+          setMonkey(JSON.parse(res.data.choices[0].message.content));
+        })
+        .then();
     };
     getData();
   };
@@ -94,6 +97,14 @@ const Filter = () => {
 
     fetchData();
   }, [lanFilter, modeFilter]);
+
+  useEffect(() => {
+    console.log(monkey);
+    if (monkey?.wpm !== undefined)
+      setAdviceText(
+        `WPM ${monkey.wpm}, 정확도 ${monkey.acc}%\n${monkey.eval.speed}\n${monkey.eval.acc}\n\n${monkey.recommend.encourage}\n\n🐵실력 향상을 하려면?\n${monkey.recommend.improve}\n\n`
+      );
+  }, [monkey]);
 
   // const fileHandler = (e) => {
   //   e.preventDefault();
@@ -174,7 +185,14 @@ const Filter = () => {
             </div>
           </div>
         </div>
-        <button onClick={advice}>원숭이의 평가 🍌</button>
+        <button onClick={advice} style={{ color: "#123123" }}>
+          원숭이의 평가 🍌
+        </button>
+        {adviceText && (
+          <div id="monkey">
+            <ReactTyped strings={[adviceText]} typeSpeed={30} />
+          </div>
+        )}
       </div>
     </>
   );

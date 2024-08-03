@@ -25,3 +25,29 @@
   background-color: rgb(122, 111, 98);
   color: white;
 }
+
+#monkey{
+  box-sizing: border-box;
+  position: absolute;
+  width: 17rem;
+  min-height: 5rem;
+  top: 0rem;
+  right: -19rem;
+  background-color: rgb(226, 209, 187);
+  border-radius: 0.4rem;
+  padding: 0.5rem 1rem;
+  word-wrap: break-word;
+  word-break: keep-all;
+  white-space: pre-wrap;
+}
+
+#monkey::before{
+  content: "";
+  position: absolute;
+  top: 1rem;
+  left: -0.9rem;
+  width: 1rem;
+  height: 1rem;
+  background:rgb(226, 209, 187);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}

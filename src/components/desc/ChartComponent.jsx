@@ -179,8 +179,8 @@ const ChartComponent = () => {
           <Chart
             data={chartInfo}
             options={chartOptions}
-            width="1100px"
-            height="600px"
+            width="68.75rem"
+            height="37.5rem"
             onMouseLeave={() => {
               setIsHover({ hover: false });
             }}

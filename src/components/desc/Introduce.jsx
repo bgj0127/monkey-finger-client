@@ -8,7 +8,14 @@ const Introduce = () => {
       <h1>Monkey Finger</h1>
       <br />
       <div id="desc">
-        <ReactTyped strings={typingList} typeSpeed={30} shuffle={true} fadeOut fadeOutDelay={2000} loop />
+        <ReactTyped
+          strings={typingList}
+          typeSpeed={30}
+          shuffle={true}
+          fadeOut
+          fadeOutDelay={2000}
+          loop
+        />
       </div>
     </div>
   );
