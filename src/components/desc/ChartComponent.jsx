@@ -2,7 +2,7 @@ import { Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { initialData, isHover, mouseXY, pointData } from "../../recoil/atoms";
+import { typingData, isHover, mouseXY, pointData } from "../../recoil/atoms";
 import NoData from "../NoData";
 import TooltipBox from "../TooltipBox";
 
@@ -15,12 +15,12 @@ function makeArr(i, j) {
 }
 
 const ChartComponent = () => {
-  const initial = useRecoilValue(initialData);
+  const typing = useRecoilValue(typingData);
   const setXY = useSetRecoilState(mouseXY);
   const setIsHover = useSetRecoilState(isHover);
   const setPointData = useSetRecoilState(pointData);
   const [chartInfo, setChartInfo] = useState({
-    labels: initial["timestamp"] ?? [""],
+    labels: typing["timestamp"] ?? [""],
     datasets: [
       {
         type: "scatter",
@@ -45,14 +45,14 @@ const ChartComponent = () => {
       return l;
     }
     setChartInfo({
-      labels: makeArr(1, initial["wpm"]?.length ?? 10),
+      labels: makeArr(1, typing["wpm"]?.length ?? 10),
       datasets: [
         {
           type: "scatter",
           label: "Word Per Minute",
           backgroundColor: "rgba(55, 42, 21, 0.7)",
           borderWidth: 3,
-          data: initial["wpm"],
+          data: typing["wpm"],
           lineTension: 0.3,
         },
         {
@@ -61,7 +61,7 @@ const ChartComponent = () => {
           backgroundColor: "rgba(55, 42, 21, 0.5)",
           borderColor: "rgba(55, 42, 21, 0.5",
           borderWidth: 5,
-          data: getAvg(initial["wpm"] ?? []),
+          data: getAvg(typing["wpm"] ?? []),
           lineTension: 0.5,
           pointStyle: false,
         },
@@ -71,7 +71,7 @@ const ChartComponent = () => {
           yAxisID: "ACC",
           backgroundColor: "rgba(141, 73, 58, 0.7)",
           borderWidth: 3,
-          data: initial["acc"],
+          data: typing["acc"],
           lineTension: 0.3,
           pointStyle: "triangle",
         },
@@ -82,13 +82,13 @@ const ChartComponent = () => {
           backgroundColor: "rgba(141, 73, 58, 0.7)",
           borderColor: "rgba(141, 73, 58, 0.7)",
           borderWidth: 3,
-          data: getAvg(initial["acc"] ?? []),
+          data: getAvg(typing["acc"] ?? []),
           lineTension: 0.3,
           pointStyle: false,
         },
       ],
     });
-  }, [initial]);
+  }, [typing]);
 
   const dateFormat = (date) => {
     return date + 1 > 9 ? date + 1 : "0" + (date + 1);
@@ -147,14 +147,14 @@ const ChartComponent = () => {
     onHover: (e, element) => {
       if (element.length > 0) {
         const index = element[0].index;
-        initial["time"][index];
-        let date = new Date(Number(initial["time"][index]));
+        typing["time"][index];
+        let date = new Date(Number(typing["time"][index]));
         setPointData({
-          wpm: initial["wpm"][index],
-          acc: initial["acc"][index],
-          mode: initial["mode"][index],
-          mode2: initial["mode2"][index],
-          language: initial["language"][index],
+          wpm: typing["wpm"][index],
+          acc: typing["acc"][index],
+          mode: typing["mode"][index],
+          mode2: typing["mode2"][index],
+          language: typing["language"][index],
           date:
             date.getFullYear() +
             "-" +
@@ -174,7 +174,7 @@ const ChartComponent = () => {
   };
   return (
     <div id="chart-item">
-      {initial.wpm?.length ? (
+      {typing.wpm?.length ? (
         <>
           <Chart
             data={chartInfo}

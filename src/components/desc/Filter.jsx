@@ -1,26 +1,21 @@
 // import { useState } from "react";
-// import { currentFilter, initialData } from "../../recoil/atoms";
-// import { useRecoilValue, useSetRecoilState } from "recoil";
-// import { apiURL } from "../../services/url";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { apiURL } from "../../services/url";
 import "../../styles/Search.css";
-import { useSetRecoilState } from "recoil";
-
-import { initialData } from "../../recoil/atoms";
-// import axios from "axios";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { typingAvg, typingData } from "../../recoil/atoms";
 
 const Filter = () => {
-  // const curFilter = useRecoilValue(currentFilter);
   // const setInitialData = useSetRecoilState(initialData);
   // const [file, setFile] = useState();
   const language = ["korean", "english"];
   const mode = ["time", "words", "zen", "custom"];
   const [lanFilter, setLanFilter] = useState(language);
   const [modeFilter, setModeFilter] = useState(mode);
-  const setInitialData = useSetRecoilState(initialData);
+  const [typing, setTypingData] = useRecoilState(typingData);
+  const avg = useRecoilValue(typingAvg);
 
   // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
   const filterSetter = (d, setD, t) => {
@@ -43,13 +38,55 @@ const Filter = () => {
     e.target.classList.toggle("select");
   };
 
+  const advice = () => {
+    const getData = async () => {
+      console.log(avg);
+      await axios
+        .post(
+          "https://api.openai.com/v1/chat/completions/",
+          {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_TOKEN}`,
+          },
+          {
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "system",
+                content: `타자연습 결과를 분석해서 객체 형태로 반환해줘. 말투는 친절하게
+            {
+            "wpm": 108, 
+            "acc": 94, 
+            "eval": { 
+            "speed": "", 
+            "acc": "" 
+            }, 
+            "recommend": { 
+            "maintain": "",
+             "improve": "" ,
+            "encourage":""
+            }
+             } 이 형식이야`,
+              },
+              { role: "user", content: `${avg.wpmAvg}wpm, ${avg.accAvg}acc` },
+            ],
+            temperature: 1.3,
+            max_tokens: 256,
+          }
+        )
+        .then((res) => {
+          console.log(res.choices[0].message.content);
+        });
+    };
+    getData();
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       await axios
         .post(apiURL + `/filter`, { language: lanFilter, mode: modeFilter })
         .then((res) => {
-          console.log(res.data);
-          setInitialData(res.data);
+          setTypingData(res.data);
         });
     };
 
@@ -132,14 +169,10 @@ const Filter = () => {
                   </div>
                 );
               })}
-              {/* <div className="box">time</div>
-              <div className="box">word</div>
-              <div className="box">custom</div>
-              <div className="box">zen</div> */}
             </div>
           </div>
         </div>
-        <button>원숭이의 조언 🍌</button>
+        <button onClick={advice}>원숭이의 평가 🍌</button>
       </div>
     </>
   );
