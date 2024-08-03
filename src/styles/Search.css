@@ -18,14 +18,10 @@
   margin-right: 0.4rem;
   border-radius: 0.4rem;
   cursor: pointer;
+  user-select: none;
 }
 
 .select {
-  background-color: rgb(122, 111, 98);
-  color: white;
-}
-
-.box:hover {
   background-color: rgb(122, 111, 98);
   color: white;
 }

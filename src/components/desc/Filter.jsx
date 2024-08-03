@@ -16,7 +16,7 @@ const Filter = () => {
   const toggleFilter = (e) => {
     e.preventDefault();
     // GET 요청 구현하기
-    console.log(e);
+    e.target.classList.toggle("select");
   };
 
   // const fileHandler = (e) => {
@@ -72,7 +72,11 @@ const Filter = () => {
             <div id="language" className="search">
               {language.map((v, i) => {
                 return (
-                  <div className="box" onClick={toggleFilter} key={v + i}>
+                  <div
+                    className="box select"
+                    onClick={toggleFilter}
+                    key={v + i}
+                  >
                     {v}
                   </div>
                 );
@@ -82,7 +86,11 @@ const Filter = () => {
             <div id="mode" className="search">
               {mode.map((v, i) => {
                 return (
-                  <div className="box" onClick={toggleFilter} key={v + i}>
+                  <div
+                    className="box select"
+                    onClick={toggleFilter}
+                    key={v + i}
+                  >
                     {v}
                   </div>
                 );
@@ -94,7 +102,7 @@ const Filter = () => {
             </div>
           </div>
         </div>
-        <button>원숭이의 조언</button>
+        <button>원숭이의 조언 🍌</button>
       </div>
     </>
   );
