@@ -1,12 +1,19 @@
 import { Chart } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Legend } from "chart.js";
+import { Chart } from "chart.js/auto";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { initialData, isHover, mouseXY, pointData } from "../../recoil/atoms";
 import NoData from "../NoData";
 import TooltipBox from "../TooltipBox";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Legend
+);
 
 function makeArr(i, j) {
   return Array(j - i + 1)
@@ -37,7 +44,9 @@ const ChartComponent = () => {
     function getAvg(d) {
       let l = [];
       for (let i = 0; i <= d.length + 1; i += 5) {
-        let tmp = d.slice(i, i + 5).reduce((p, c) => p + c, 0) / d.slice(i, i + 5).length;
+        let tmp =
+          d.slice(i, i + 5).reduce((p, c) => p + c, 0) /
+          d.slice(i, i + 5).length;
         l.push({ x: i, y: tmp });
       }
       return l;
