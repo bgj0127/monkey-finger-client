@@ -1,19 +1,12 @@
 import { Chart } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
+import { Chart as ChartJS, registerables } from "chart.js";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { initialData, isHover, mouseXY, pointData } from "../../recoil/atoms";
 import NoData from "../NoData";
 import TooltipBox from "../TooltipBox";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Legend
-);
+ChartJS.register(...registerables);
 
 function makeArr(i, j) {
   return Array(j - i + 1)
