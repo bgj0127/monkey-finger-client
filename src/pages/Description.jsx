@@ -27,6 +27,7 @@ const Description = () => {
 
   return (
     <div id="desc-wrap">
+      <h3 style={{ position: "absolute", marginTop: 20 }}>개발중</h3>
       <div id="intro-container">
         <MyProfile />
         <Introduce />

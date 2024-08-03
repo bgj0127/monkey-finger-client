@@ -94,6 +94,7 @@ const Filter = () => {
             </div>
           </div>
         </div>
+        <button>원숭이의 조언</button>
       </div>
     </>
   );

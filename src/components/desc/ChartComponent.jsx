@@ -95,15 +95,11 @@ const ChartComponent = () => {
   };
 
   const chartOptions = {
-    interaction: {
-      mode: "point",
-      intersect: false,
-    },
     plugins: {
       interaction: {
         mode: "point",
       },
-      tooltip: {},
+      tooltip: { enabled: false },
       legend: {
         display: true,
         position: "top",
