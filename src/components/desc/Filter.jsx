@@ -2,7 +2,14 @@
 // import { currentFilter, initialData } from "../../recoil/atoms";
 // import { useRecoilValue, useSetRecoilState } from "recoil";
 // import { apiURL } from "../../services/url";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import { apiURL } from "../../services/url";
 import "../../styles/Search.css";
+import { useSetRecoilState } from "recoil";
+
+import { initialData } from "../../recoil/atoms";
 // import axios from "axios";
 
 const Filter = () => {
@@ -10,14 +17,44 @@ const Filter = () => {
   // const setInitialData = useSetRecoilState(initialData);
   // const [file, setFile] = useState();
   const language = ["korean", "english"];
-  const mode = ["time", "word", "zen", "custom"];
+  const mode = ["time", "words", "zen", "custom"];
+  const [lanFilter, setLanFilter] = useState(language);
+  const [modeFilter, setModeFilter] = useState(mode);
+  const setInitialData = useSetRecoilState(initialData);
+
+  // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
+  const filterSetter = (d, setD, t) => {
+    if (d.includes(t)) {
+      setD(d.filter((lan) => lan !== t));
+    } else {
+      setD([...d, t]);
+    }
+  };
 
   // 태그 눌릴 때마다 GET요청 보낼거임
   const toggleFilter = (e) => {
-    e.preventDefault();
+    const curFilterText = e.target.innerText;
+    const curFilterType = e.target.classList[0];
     // GET 요청 구현하기
+    curFilterType === "language"
+      ? filterSetter(lanFilter, setLanFilter, curFilterText)
+      : filterSetter(modeFilter, setModeFilter, curFilterText);
+
     e.target.classList.toggle("select");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .post(apiURL + `/filter`, { language: lanFilter, mode: modeFilter })
+        .then((res) => {
+          console.log(res.data);
+          setInitialData(res.data);
+        });
+    };
+
+    fetchData();
+  }, [lanFilter, modeFilter]);
 
   // const fileHandler = (e) => {
   //   e.preventDefault();
@@ -73,7 +110,7 @@ const Filter = () => {
               {language.map((v, i) => {
                 return (
                   <div
-                    className="box select"
+                    className="language box select"
                     onClick={toggleFilter}
                     key={v + i}
                   >
@@ -87,7 +124,7 @@ const Filter = () => {
               {mode.map((v, i) => {
                 return (
                   <div
-                    className="box select"
+                    className="mode box select"
                     onClick={toggleFilter}
                     key={v + i}
                   >
