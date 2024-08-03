@@ -45,10 +45,6 @@ const Filter = () => {
         .post(
           "https://api.openai.com/v1/chat/completions",
           {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_TOKEN}`,
-          },
-          {
             model: "gpt-3.5-turbo",
             messages: [
               {
@@ -72,6 +68,12 @@ const Filter = () => {
             ],
             temperature: 1.3,
             max_tokens: 256,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${import.meta.env.VITE_OPENAI_TOKEN}`,
+            },
           }
         )
         .then((res) => {
