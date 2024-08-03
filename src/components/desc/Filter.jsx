@@ -43,7 +43,7 @@ const Filter = () => {
       console.log(avg);
       await axios
         .post(
-          "https://api.openai.com/v1/chat/completions/",
+          "https://api.openai.com/v1/chat/completions",
           {
             "Content-Type": "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_OPENAI_TOKEN}`,
