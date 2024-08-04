@@ -8,6 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { typingAvg, typingData } from "../../recoil/atoms";
 import { ReactTyped } from "react-typed";
 import { useRef } from "react";
+import { SyncLoader } from "react-spinners";
 
 const Filter = () => {
   // const setInitialData = useSetRecoilState(initialData);
@@ -105,7 +106,7 @@ const Filter = () => {
   useEffect(() => {
     if (monkey?.wpm !== undefined)
       setAdviceText(
-        `WPM ${monkey.wpm}🚀, 정확도 ${monkey.acc}%🎯\n${monkey.eval.speed}\n${monkey.eval.acc}\n\n${monkey.recommend.encourage}🙌\n\n🐵실력 향상을 하려면?\n${monkey.recommend.improve}\n\n`
+        `WPM ${monkey.wpm}, 정확도 ${monkey.acc}%\n${monkey.eval.speed}🚀\n${monkey.eval.acc}🎯\n\n${monkey.recommend.encourage}🙌\n\n🐵실력 향상을 하려면?\n${monkey.recommend.improve}\n\n`
       );
   }, [monkey]);
 
@@ -188,9 +189,19 @@ const Filter = () => {
             </div>
           </div>
         </div>
-        <button onClick={advice} style={{ color: "#123123" }}>
-          {isDisableAPI.current ? "..." : "원숭이의 평가 🍌"}
-        </button>
+        {isDisableAPI.current ? (
+          <div id="loading" onClick={(e) => e.preventDefault()}>
+            <SyncLoader
+              color="rgb(122,111,98"
+              size={10}
+              speedMultiplier="0.5"
+            />
+          </div>
+        ) : (
+          <button onClick={advice} style={{ color: "#123123" }}>
+            원숭이의 평가 🍌
+          </button>
+        )}
         {adviceText && (
           <div id="monkey">
             <ReactTyped strings={[adviceText]} typeSpeed={30} />
