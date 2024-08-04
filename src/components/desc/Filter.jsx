@@ -57,20 +57,8 @@ const Filter = () => {
             messages: [
               {
                 role: "system",
-                content: `타자연습 결과를 분석해서 문자열을 객체 형태로 반환. 모든 값은 존재해야함. 한국어 번역.
-             {
-              "wpm": , 
-              "acc": ,       
-              "eval": { 
-                "speed": ,  
-                "acc":    
-              }, 
-              "recommend": { 
-                "maintain": ,
-                "improve": ,     
-                "encourage": 
-              }
-            }`,
+                content:
+                  '타자연습 결과를 분석해서 문자열을 객체 형태로 반환. 모든 값은 존재해야함. 반드시!!! 한국어 번역.{"wpm":,"acc":,"eval": {"speed":,"acc":},"recommend": { "maintain": ,"improve":,"encourage":}}',
               },
               { role: "user", content: `${avg.wpmAvg}wpm, ${avg.accAvg}acc` },
             ],
