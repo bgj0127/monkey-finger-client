@@ -11,7 +11,6 @@ import { useRef } from "react";
 import { SyncLoader } from "react-spinners";
 
 const Filter = () => {
-  // const setInitialData = useSetRecoilState(initialData);
   // const [file, setFile] = useState();
   const language = ["korean", "english"];
   const mode = ["time", "words", "quote", "zen", "custom"];
@@ -22,6 +21,7 @@ const Filter = () => {
   const [monkey, setMonkey] = useState({});
   const [adviceText, setAdviceText] = useState("");
   const isDisableAPI = useRef(false);
+
   // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
   const filterSetter = (d, setD, t) => {
     if (d.includes(t)) {
@@ -45,6 +45,7 @@ const Filter = () => {
 
   const advice = () => {
     setAdviceText("");
+    if (typing.wpm?.length == 0) return;
     const getData = async () => {
       if (isDisableAPI.current) return;
       isDisableAPI.current = true;
