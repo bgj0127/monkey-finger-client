@@ -45,36 +45,21 @@ const Filter = () => {
 
   const advice = () => {
     setAdviceText("");
-    if (typing.wpm?.length == 0) return;
+    if (avg?.wpmAvg == undefined) return;
     const getData = async () => {
       if (isDisableAPI.current) return;
       isDisableAPI.current = true;
       await axios
-        .post(
-          "https://api.openai.com/v1/chat/completions",
-          {
-            model: "gpt-3.5-turbo",
-            messages: [
-              {
-                role: "system",
-                content:
-                  '타자연습 결과를 분석해서 문자열을 객체 형태로 반환. 모든 값은 존재해야함. 반드시!!! 한국어 번역.{"wpm":,"acc":,"eval": {"speed":,"acc":},"recommend": { "maintain": ,"improve":,"encourage":}}',
-              },
-              { role: "user", content: `${avg.wpmAvg}wpm, ${avg.accAvg}acc` },
-            ],
-            temperature: 1.3,
-            max_tokens: 512,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${import.meta.env.VITE_OPENAI_TOKEN}`,
-            },
-          }
-        )
+        .post(apiURL + "/advice", {
+          wpm: avg.wpmAvg,
+          acc: avg.accAvg,
+        })
         .then((res) => {
-          setMonkey(JSON.parse(res.data.choices[0].message.content));
+          setMonkey(JSON.parse(res.data));
           isDisableAPI.current = false;
+        })
+        .catch((e) => {
+          setAdviceText("다시 시도해주세요🙊");
         });
     };
     getData();
