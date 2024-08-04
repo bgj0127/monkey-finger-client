@@ -60,6 +60,7 @@ const Filter = () => {
         })
         .catch((e) => {
           setAdviceText("다시 시도해주세요🙊");
+          isDisableAPI.current = false;
         });
     };
     getData();
