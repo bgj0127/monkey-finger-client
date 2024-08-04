@@ -38,8 +38,8 @@ const ChartComponent = () => {
       let l = [];
       for (let i = 0; i <= d.length + 1; i += 10) {
         let tmp =
-          d.slice(i, i + 5).reduce((p, c) => p + c, 0) /
-          d.slice(i, i + 5).length;
+          d.slice(i, i + 10).reduce((p, c) => p + c, 0) /
+          d.slice(i, i + 10).length;
         l.push({ x: i, y: tmp });
       }
       return l;
