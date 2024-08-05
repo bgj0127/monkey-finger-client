@@ -43,12 +43,14 @@ const Filter = () => {
 
   const advice = () => {
     setAdviceText("");
+    if (isDisableAPI.current) return;
+    isDisableAPI.current = true;
     if (typing?.wpm.length == 0) {
       setAdviceText("데이터가 없어 분석할 수 없어요🙈");
+      isDisableAPI.current = false;
       return;
     }
     const getData = async () => {
-      if (isDisableAPI.current) return;
       isDisableAPI.current = true;
       await axios
         .get(apiURL + "/advice")
