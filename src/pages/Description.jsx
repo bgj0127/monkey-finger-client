@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Introduce from "../components/desc/Introduce";
 import MyProfile from "../components/desc/MyProfile";
 import ChartComponent from "../components/desc/ChartComponent";
@@ -8,6 +9,9 @@ import Filter from "../components/desc/Filter";
 const Description = () => {
   return (
     <div id="desc-wrap">
+      <Link to="/about" className="link">
+        About
+      </Link>
       <div id="intro-container">
         <MyProfile />
         <Introduce />

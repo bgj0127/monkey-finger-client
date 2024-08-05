@@ -1,0 +1,33 @@
+#about_container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 90vh;
+  background-color: #e7dccc;
+  padding: 2rem;
+  border-radius: 1rem;
+  word-break: keep-all;
+  word-spacing: 0.4rem;
+  line-height: 1.5rem;
+}
+
+hr {
+  background-color: rgb(255, 228, 216);
+  border-color: rgb(255, 228, 216);
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  right: 20rem;
+  padding: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: rgb(204, 186, 147);
+  font-weight: bold;
+}
