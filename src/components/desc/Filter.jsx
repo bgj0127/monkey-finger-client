@@ -53,7 +53,6 @@ const Filter = () => {
       await axios
         .get(apiURL + "/advice")
         .then((res) => {
-          console.log(res.data);
           setMonkey(JSON.parse(res.data));
           isDisableAPI.current = false;
         })
