@@ -24,7 +24,7 @@ hr {
 .link {
   position: absolute;
   top: 0;
-  right: 20rem;
+  left: 20rem;
   padding: 1rem;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;

@@ -5,9 +5,9 @@ import { apiURL } from "../../services/url";
 import "../../styles/Search.css";
 import { useRecoilState } from "recoil";
 import { typingData } from "../../recoil/atoms";
-import { ReactTyped } from "react-typed";
 import { useRef } from "react";
 import { SyncLoader } from "react-spinners";
+import ReactMarkDown from "react-markdown";
 
 const Filter = () => {
   // const [file, setFile] = useState();
@@ -16,7 +16,7 @@ const Filter = () => {
   const [lanFilter, setLanFilter] = useState(language);
   const [modeFilter, setModeFilter] = useState(mode);
   const [typing, setTypingData] = useRecoilState(typingData);
-  const [monkey, setMonkey] = useState({});
+  const [monkey, setMonkey] = useState("");
   const [adviceText, setAdviceText] = useState("");
   const isDisableAPI = useRef(false);
 
@@ -55,7 +55,7 @@ const Filter = () => {
       await axios
         .get(apiURL + "/advice")
         .then((res) => {
-          setMonkey(JSON.parse(res.data));
+          setMonkey(res.data);
           isDisableAPI.current = false;
         })
         .catch((e) => {
@@ -78,10 +78,8 @@ const Filter = () => {
   }, [lanFilter, modeFilter, setTypingData]);
 
   useEffect(() => {
-    if (monkey?.average_speed !== undefined) {
-      setAdviceText(
-        `평균 WPM - ${monkey.average_speed}\n평균 정확도 - ${monkey.average_accuracy}%\n평균 테스트 시간 - ${monkey.average_duration}초\n타자속도 - ${monkey.speed_trend}\n일관성 - ${monkey.stability}\n정확도 - ${monkey.accuracy_trend} \n\n${monkey.advice}`
-      );
+    if (monkey !== "") {
+      setAdviceText(monkey);
     }
   }, [monkey]);
 
@@ -167,7 +165,7 @@ const Filter = () => {
         )}
         {adviceText && (
           <div id="monkey">
-            <ReactTyped strings={[adviceText]} typeSpeed={30} />
+            <ReactMarkDown>{adviceText}</ReactMarkDown>
           </div>
         )}
       </div>
