@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 export const typingData = atom({
   key: "typingData",
@@ -6,18 +6,6 @@ export const typingData = atom({
     value: {},
   },
 });
-
-export const typingAvg = selector({
-  key:"typingAvg",
-  get: ({get}) => {
-    const data = get(typingData)
-    if (data.wpm?.length) {
-      const wpmAvg = Math.round((data.wpm.reduce((a,c) => a+c) / data.wpm.length) * 100) / 100 
-      const accAvg = Math.round((data.acc.reduce((a,c) => a+c) / data.acc.length) * 100) / 100
-      return {wpmAvg, accAvg}
-    }
-  }
-})
 
 export const mouseXY = atom({
   key: "mouseXY",
