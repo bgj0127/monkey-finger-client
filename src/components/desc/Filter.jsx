@@ -79,7 +79,7 @@ const Filter = () => {
 
   useEffect(() => {
     if (monkey !== "") {
-      setAdviceText(monkey.replaceAll(/\\r\\n|\\n|\\r/gm, ""));
+      setAdviceText(monkey.replace(/\\r\\n|\\n|\\r/gm, ""));
     }
   }, [monkey]);
 
