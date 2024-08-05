@@ -79,7 +79,7 @@ const Filter = () => {
 
   useEffect(() => {
     if (monkey !== "") {
-      setAdviceText(monkey);
+      setAdviceText(monkey.replaceAll(/\\r\\n|\\n|\\r/gm, ""));
     }
   }, [monkey]);
 
@@ -104,8 +104,8 @@ const Filter = () => {
   //     })
   //     .then(() => {
   //       async function updateData() {
-  //         await axios.get(apiURL + "/default").then((res) => {
-  //           setInitialData(res.data);
+  //         await axios.post(apiURL + "/filter", { language: lanFilter, mode: modeFilter }).then((res) => {
+  //           setTypingData(res.data);
   //         });
   //       }
   //       updateData();
@@ -115,22 +115,16 @@ const Filter = () => {
   //     });
   // };
 
-  // 기간별 필터링 가능해야함
-  // 모드별 필터링도 마찬가지
-  // 언어별 필터링은 필수 -> 언어에서 _1k 어떻게 할지?
-  //                         하나로 통일해서 보여주는게 맞을듯
-  //                         이 작업은 DB에서 처리하는게 좋을듯하다.
-
-  // 암튼 프론트 구현 먼저 하자
   return (
     <>
       <div id="filter-wrap">
+        {/* <form action={`${apiURL}/uploadfile`} method="POST">
+          <input type="file" onChange={fileHandler} accept=".csv" />
+          <button onClick={uploadFiles}>전송</button>
+        </form> */}
         <div id="filter-items">
-          {/* <span>filter</span>
-          <form action={`${apiURL}/uploadfile`} method="POST">
-            <input type="file" onChange={fileHandler} accept=".csv" />
-            <button onClick={uploadFiles}>전송</button>
-          </form> */}
+          {/* <span>filter</span> */}
+
           <div id="search-container">
             <div>Language:</div>
             <div id="language" className="search">
