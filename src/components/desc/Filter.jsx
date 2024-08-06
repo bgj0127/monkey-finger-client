@@ -153,9 +153,7 @@ const Filter = () => {
             <SyncLoader color="rgb(122,111,98" size={10} speedMultiplier="0.5" />
           </div>
         ) : (
-          <button onClick={advice} style={{ color: "#123123" }}>
-            원숭이의 평가 🍌
-          </button>
+          <button onClick={advice}>원숭이의 평가 🍌</button>
         )}
         {adviceText && (
           <div id="monkey">

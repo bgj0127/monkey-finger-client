@@ -22,10 +22,6 @@
   text-decoration: underline;
 }
 
-h2 {
-  font-size: 3rem;
-}
-
 .input_container {
   display: flex;
   justify-content: center;
@@ -49,9 +45,6 @@ input:focus {
   outline: none;
 }
 
-h2 {
-  margin: 0;
-}
 
 .sep {
   width: 100%;
