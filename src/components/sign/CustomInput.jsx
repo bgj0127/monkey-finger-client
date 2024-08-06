@@ -40,7 +40,7 @@ const CustomInput = (props) => {
           onKeyUp={upKey}
           value={inputData[props.name]}
           placeholder={props.use}
-          maxLength={20}
+          maxLength={30}
         />
       </div>
     </>

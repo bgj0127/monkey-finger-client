@@ -20,7 +20,7 @@ const Register = () => {
         <CustomInput name="userId" type="text" use="id" />
         <CustomInput name="userPw" type="password" use="password" />
         <Link to="/register" className="sign_text">
-          회원가입 하러가기
+          신규 회원이신가요?
         </Link>
         <br />
         <button onClick={submit}>로그인</button>
