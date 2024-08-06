@@ -33,3 +33,12 @@ export const pointData = atom({
     date: "",
   },
 });
+
+export const signData = atom({
+  key: "signData",
+  default: {
+    userId: "",
+    userPw: "",
+    checkPw: "",
+  },
+});
