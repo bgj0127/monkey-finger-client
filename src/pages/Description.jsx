@@ -5,8 +5,17 @@ import ChartComponent from "../components/desc/ChartComponent";
 import Divider from "../components/Divider";
 import "../styles/Description.css";
 import Filter from "../components/desc/Filter";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getCookie } from "../services/cookie";
 
 const Description = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (getCookie("userId") === undefined) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <div id="desc-wrap">
       <Link to="/about" className="link">

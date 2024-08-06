@@ -28,7 +28,6 @@ export const pointData = atom({
     wpm: "",
     acc: "",
     mode: "",
-    mode2: "",
     language: "",
     date: "",
   },

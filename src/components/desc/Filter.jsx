@@ -8,9 +8,10 @@ import { typingData } from "../../recoil/atoms";
 import { useRef } from "react";
 import { SyncLoader } from "react-spinners";
 import ReactMarkDown from "react-markdown";
+import { getCookie } from "../../services/cookie";
 
 const Filter = () => {
-  // const [file, setFile] = useState();
+  const [file, setFile] = useState();
   const language = ["korean", "english"];
   const mode = ["time", "words", "quote", "zen", "custom"];
   const [lanFilter, setLanFilter] = useState(language);
@@ -60,7 +61,6 @@ const Filter = () => {
         })
         .catch((e) => {
           setAdviceText("다시 시도해주세요🙊");
-          console.log(e);
           isDisableAPI.current = false;
         });
     };
@@ -69,9 +69,11 @@ const Filter = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await axios.post(apiURL + `/filter`, { language: lanFilter, mode: modeFilter }).then((res) => {
-        setTypingData(res.data);
-      });
+      await axios
+        .post(apiURL + "/typing/filter", { user_id: getCookie("userId"), language: lanFilter, mode: modeFilter })
+        .then((res) => {
+          setTypingData(res.data);
+        });
     };
 
     fetchData();
@@ -83,48 +85,48 @@ const Filter = () => {
     }
   }, [monkey]);
 
-  // const fileHandler = (e) => {
-  //   e.preventDefault();
-  //   if (e.target.files) {
-  //     const uploadFile = e.target.files[0];
-  //     setFile(uploadFile);
-  //   }
-  // };
+  const fileHandler = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      const uploadFile = e.target.files[0];
+      setFile(uploadFile);
+    }
+  };
 
-  // const uploadFiles = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
+  const uploadFiles = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
 
-  //   formData.append("file", file);
-  //   axios
-  //     .post(`${apiURL}` + "/uploadfile", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then(() => {
-  //       async function updateData() {
-  //         await axios.post(apiURL + "/filter", { language: lanFilter, mode: modeFilter }).then((res) => {
-  //           setTypingData(res.data);
-  //         });
-  //       }
-  //       updateData();
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
+    formData.append("typing_data", file);
+    axios
+      .post(`${apiURL}` + `/typing/upload?user_id=${getCookie("userId")}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        async function updateData() {
+          await axios
+            .post(apiURL + "/typing/filter", { user_id: getCookie("userId"), language: lanFilter, mode: modeFilter })
+            .then((res) => {
+              setTypingData(res.data);
+            });
+        }
+        updateData();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <>
       <div id="filter-wrap">
-        {/* <form action={`${apiURL}/uploadfile`} method="POST">
+        <form action={`${apiURL}/uploadfile`} method="POST" id="file_form">
           <input type="file" onChange={fileHandler} accept=".csv" />
           <button onClick={uploadFiles}>전송</button>
-        </form> */}
+        </form>
         <div id="filter-items">
-          {/* <span>filter</span> */}
-
           <div id="search-container">
             <div>Language:</div>
             <div id="language" className="search">

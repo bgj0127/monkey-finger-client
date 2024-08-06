@@ -37,9 +37,7 @@ const ChartComponent = () => {
     function getAvg(d) {
       let l = [];
       for (let i = 0; i <= d.length + 1; i += 10) {
-        let tmp =
-          d.slice(i, i + 10).reduce((p, c) => p + c, 0) /
-          d.slice(i, i + 10).length;
+        let tmp = d.slice(i, i + 10).reduce((p, c) => p + c, 0) / d.slice(i, i + 10).length;
         l.push({ x: i, y: tmp });
       }
       return l;
@@ -153,7 +151,7 @@ const ChartComponent = () => {
           wpm: typing["wpm"][index],
           acc: typing["acc"][index],
           mode: typing["mode"][index],
-          mode2: typing["mode2"][index],
+          // mode2: typing["mode2"][index],
           language: typing["language"][index],
           date:
             date.getFullYear() +
