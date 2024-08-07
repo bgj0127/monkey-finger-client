@@ -6,13 +6,14 @@ const TooltipBox = () => {
   const xy = useRecoilValue(mouseXY);
   const hover = useRecoilValue(isHover);
   const data = useRecoilValue(pointData);
+
   return (
     <>
       <div
         id="tooltip-box"
         style={{
-          left: xy.x,
-          top: xy.y,
+          left: xy.x + 10,
+          top: xy.y - 10,
           display: hover.hover ? "block" : "none",
         }}
       >

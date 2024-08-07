@@ -45,6 +45,7 @@ h1, h3 {
 
 #chart-item {
     display: flex;
+    position: inherit;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -56,8 +57,6 @@ h1, h3 {
 }
 
 .chart-title {
-    /* font-family: "D2Coding-Regular"; */
-    /* font-size: larger; */
     margin: 0;
 }
 
