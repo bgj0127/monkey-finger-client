@@ -9,11 +9,14 @@ import { getCookie } from "../../services/cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiURL } from "../../services/url";
+import { SyncLoader } from "react-spinners";
+import ServiceInfo from "../../components/sign/ServiceInfo";
 
 const Register = () => {
   const navigate = useNavigate();
   const inputData = useRecoilValue(signData);
   const [errorText, setErrorText] = useState("");
+  const [isAwait, setIsAwait] = useState(false);
 
   const submit = () => {
     const userId = inputData.userId;
@@ -32,18 +35,25 @@ const Register = () => {
     }
     // 서버 통신
     const register = async () => {
+      setIsAwait(true);
+
       await axios
         .post(apiURL + "/user/register", { user_id: userId, user_pw: userPw })
         .then((res) => {
           if (res.data.status_code === 200) {
-            alert("회원가입 성공!");
+            setIsAwait(false);
             navigate("/login");
           }
         })
         .catch((e) => {
-          if (e.response.status === 409) {
+          if (e.response?.status === 409) {
             setErrorText("이미 존재하는 아이디 입니다.");
+          } else {
+            setErrorText("오류가 발생했어요. 잠시 후 다시 시도해주세요.");
           }
+        })
+        .finally(() => {
+          setIsAwait(false);
         });
     };
     register();
@@ -56,7 +66,11 @@ const Register = () => {
   return (
     <>
       <div className="form_container">
+        <ServiceInfo />
         <h2>Welcome</h2>
+        {isAwait && (
+          <SyncLoader color="rgb(122,111,98" size={10} speedMultiplier="0.5" style={{ position: "absolute" }} />
+        )}
         <div className="sep" />
         <CustomInput name="userId" type="text" use="아이디" />
         <CustomInput name="userPw" type="password" use="비밀번호 (8~30자)" />

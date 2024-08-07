@@ -1,0 +1,16 @@
+#info_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 28rem;
+  margin: 0 2rem;
+  /* background-color: aqua; */
+  word-break: keep-all;
+}
+
+strong {
+  text-decoration: underline;
+}

@@ -59,7 +59,7 @@ const Filter = () => {
           setMonkey(res.data);
           isDisableAPI.current = false;
         })
-        .catch((e) => {
+        .catch(() => {
           setAdviceText("다시 시도해주세요🙊");
           isDisableAPI.current = false;
         });

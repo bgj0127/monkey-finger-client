@@ -9,10 +9,13 @@ import { apiURL } from "../../services/url";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "../../services/cookie";
 import { useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
+import ServiceInfo from "../../components/sign/ServiceInfo";
 
 const Register = () => {
   const navigate = useNavigate();
   const inputData = useRecoilValue(signData);
+  const [isAwait, setIsAwait] = useState(false);
   const [errorText, setErrorText] = useState("");
   const submit = () => {
     setErrorText("");
@@ -22,18 +25,26 @@ const Register = () => {
       return;
     }
     const login = async () => {
+      setIsAwait(true);
+
       await axios
         .post(apiURL + "/user/login", { user_id: inputData.userId, user_pw: inputData.userPw })
         .then((res) => {
           setCookie("userId", res.data.userId);
           navigate("/");
+          setIsAwait(false);
         })
         .catch((e) => {
-          if (e.response.status === 400) {
+          if (e.response?.status === 400) {
             setErrorText("아이디 혹은 비밀번호가 잘못되었습니다.");
-          } else if (e.response.status === 422) {
+          } else if (e.response?.status === 422) {
             setErrorText(e.response.data.detail);
+          } else {
+            setErrorText("오류가 발생했어요. 잠시 후 다시 시도해주세요.");
           }
+        })
+        .finally(() => {
+          setIsAwait(false);
         });
     };
     login();
@@ -46,7 +57,11 @@ const Register = () => {
   return (
     <>
       <div className="form_container">
+        <ServiceInfo />
         <h2>Login</h2>
+        {isAwait && (
+          <SyncLoader color="rgb(122,111,98" size={10} speedMultiplier="0.5" style={{ position: "absolute" }} />
+        )}
         <div className="sep" />
         <CustomInput name="userId" type="text" use="아이디" />
         <CustomInput name="userPw" type="password" use="비밀번호" submit={submit} />
