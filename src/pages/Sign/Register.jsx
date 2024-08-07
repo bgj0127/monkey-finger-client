@@ -59,7 +59,7 @@ const Register = () => {
     register();
   };
   useEffect(() => {
-    if (getCookie("userId") !== undefined) {
+    if (getCookie("access_token") !== undefined) {
       navigate("/");
     }
   }, []);

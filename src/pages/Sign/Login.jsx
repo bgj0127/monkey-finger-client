@@ -26,13 +26,21 @@ const Register = () => {
     }
     const login = async () => {
       setIsAwait(true);
-
-      await axios
-        .post(apiURL + "/user/login", { user_id: inputData.userId, user_pw: inputData.userPw })
+      const formData = new FormData();
+      formData.append("username", inputData.userId);
+      formData.append("password", inputData.userPw);
+      await axios({
+        method: "POST",
+        url: apiURL + "/token",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+      })
         .then((res) => {
-          setCookie("userId", res.data.userId);
-          navigate("/");
+          setCookie("access_token", res.data.access_token);
           setIsAwait(false);
+          navigate("/");
         })
         .catch((e) => {
           if (e.response?.status === 400) {
@@ -46,11 +54,31 @@ const Register = () => {
         .finally(() => {
           setIsAwait(false);
         });
+
+      // await axios
+      //   .post(apiURL + "/token", { user_id: inputData.userId, user_pw: inputData.userPw })
+      //   .then((res) => {
+      //     setCookie("userId", res.data.userId);
+      //     navigate("/");
+      //     setIsAwait(false);
+      //   })
+      //   .catch((e) => {
+      //     if (e.response?.status === 400) {
+      //       setErrorText("아이디 혹은 비밀번호가 잘못되었습니다.");
+      //     } else if (e.response?.status === 422) {
+      //       setErrorText(e.response.data.detail);
+      //     } else {
+      //       setErrorText("오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+      //     }
+      //   })
+      //   .finally(() => {
+      //     setIsAwait(false);
+      //   });
     };
     login();
   };
   useEffect(() => {
-    if (getCookie("userId") !== undefined) {
+    if (getCookie("access_token") !== undefined) {
       navigate("/");
     }
   }, []);

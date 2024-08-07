@@ -19,6 +19,7 @@ const Filter = () => {
   const [typing, setTypingData] = useRecoilState(typingData);
   const [monkey, setMonkey] = useState("");
   const [adviceText, setAdviceText] = useState("");
+  const [isComplete, setIsComplete] = useState(true);
   const isDisableAPI = useRef(false);
 
   // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
@@ -54,7 +55,15 @@ const Filter = () => {
     const getData = async () => {
       isDisableAPI.current = true;
       await axios
-        .get(apiURL + "/advice")
+        .post(
+          apiURL + "/advice",
+          { language: lanFilter, mode: modeFilter },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie("access_token")}`,
+            },
+          }
+        )
         .then((res) => {
           setMonkey(res.data);
           isDisableAPI.current = false;
@@ -70,7 +79,15 @@ const Filter = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .post(apiURL + "/typing/filter", { user_id: getCookie("userId"), language: lanFilter, mode: modeFilter })
+        .post(
+          apiURL + "/typing/filter",
+          { language: lanFilter, mode: modeFilter },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookie("access_token")}`,
+            },
+          }
+        )
         .then((res) => {
           setTypingData(res.data);
         });
@@ -81,7 +98,7 @@ const Filter = () => {
 
   useEffect(() => {
     if (monkey !== "") {
-      setAdviceText(monkey.replace(/\\r\\n|\\n|\\r/gm, ""));
+      setAdviceText(monkey);
     }
   }, [monkey]);
 
@@ -94,28 +111,42 @@ const Filter = () => {
   };
 
   const uploadFiles = (e) => {
+    setIsComplete(false);
     e.preventDefault();
     const formData = new FormData();
 
     formData.append("typing_data", file);
     axios
-      .post(`${apiURL}` + `/typing/upload?user_id=${getCookie("userId")}`, formData, {
+      .post(apiURL + "/typing/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
       .then(() => {
         async function updateData() {
           await axios
-            .post(apiURL + "/typing/filter", { user_id: getCookie("userId"), language: lanFilter, mode: modeFilter })
+            .post(
+              apiURL + "/typing/filter",
+              {
+                language: lanFilter,
+                mode: modeFilter,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${getCookie("access_token")}`,
+                },
+              }
+            )
             .then((res) => {
               setTypingData(res.data);
+              setIsComplete(true);
             });
         }
         updateData();
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
+        setIsComplete(true);
       });
   };
 
@@ -128,6 +159,14 @@ const Filter = () => {
             업로드
           </button>
         </form>
+        {!isComplete && (
+          <SyncLoader
+            color="rgb(122,111,98"
+            size={10}
+            speedMultiplier="0.5"
+            style={{ position: "absolute", top: "-3rem", left: "15rem" }}
+          />
+        )}
         <div id="filter-items">
           <div id="search-container">
             <div>Language:</div>

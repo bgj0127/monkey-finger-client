@@ -11,6 +11,6 @@
   word-break: keep-all;
 }
 
-strong {
+.link_strong {
   text-decoration: underline;
 }
