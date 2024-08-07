@@ -17,6 +17,10 @@ const Register = () => {
   const submit = () => {
     setErrorText("");
     if (inputData.userId.length <= 0 || inputData.userPw.length <= 0) return;
+    if (inputData.userPw.length < 8) {
+      setErrorText("비밀번호는 8자 이상 입력해주세요.");
+      return;
+    }
     const login = async () => {
       await axios
         .post(apiURL + "/user/login", { user_id: inputData.userId, user_pw: inputData.userPw })
@@ -45,7 +49,7 @@ const Register = () => {
         <h2>Login</h2>
         <div className="sep" />
         <CustomInput name="userId" type="text" use="아이디" />
-        <CustomInput name="userPw" type="password" use="비밀번호" />
+        <CustomInput name="userPw" type="password" use="비밀번호" submit={submit} />
         <div style={{ color: "red" }}>{errorText}</div>
         <Link to="/register" className="sign_text">
           신규 회원이신가요?

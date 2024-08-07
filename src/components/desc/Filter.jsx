@@ -123,8 +123,10 @@ const Filter = () => {
     <>
       <div id="filter-wrap">
         <form action={`${apiURL}/uploadfile`} method="POST" id="file_form">
-          <input type="file" onChange={fileHandler} accept=".csv" />
-          <button onClick={uploadFiles}>전송</button>
+          <input type="file" onChange={fileHandler} accept=".csv" id="file_input" />
+          <button onClick={uploadFiles} id="file_sumbit">
+            업로드
+          </button>
         </form>
         <div id="filter-items">
           <div id="search-container">

@@ -3,15 +3,19 @@ import Description from "../pages/Description";
 import About from "../pages/About";
 import Register from "../pages/Sign/Register";
 import Login from "../pages/Sign/Login";
+import Layout from "./Layout";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Description />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<Layout />}>
+          <Route exact path="/" element={<Description />} />
+          <Route exact path="/about" element={<About />} />
+        </Route>
+
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

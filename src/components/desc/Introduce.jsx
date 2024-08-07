@@ -4,7 +4,7 @@ import typingList from "../../constants/typingWords";
 const Introduce = () => {
   return (
     <div>
-      <h3>타자연습 기록 조회 및 분석</h3>
+      <h3>Monkeytype 기록 업로드 및 분석</h3>
       <h1>Monkey Finger</h1>
       <br />
       <div id="desc">

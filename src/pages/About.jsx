@@ -1,12 +1,8 @@
-import { Link } from "react-router-dom";
 import "../styles/About.css";
 
 const About = () => {
   return (
     <>
-      <Link to="/" className="link">
-        Home
-      </Link>
       <div id="about_container">
         <h2>나의 타자연습 조회 및 분석 웹사이트</h2>
         <div>

@@ -60,7 +60,7 @@ const Register = () => {
         <div className="sep" />
         <CustomInput name="userId" type="text" use="아이디" />
         <CustomInput name="userPw" type="password" use="비밀번호 (8~30자)" />
-        <CustomInput name="checkPw" type="password" use="비밀번호 확인" />
+        <CustomInput name="checkPw" type="password" use="비밀번호 확인" submit={submit} />
         <div style={{ color: "red" }}>{errorText}</div>
         <Link to="/login" className="sign_text">
           계정이 있으신가요?

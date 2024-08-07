@@ -30,7 +30,7 @@ body {
   place-items: center;
   width: 100vw;
   max-width: 100%;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -48,6 +48,7 @@ button {
   background-color: #4d4437;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: white;
 }
 
 input {
