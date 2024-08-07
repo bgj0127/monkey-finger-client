@@ -11,8 +11,8 @@ const TooltipBox = () => {
       <div
         id="tooltip-box"
         style={{
-          left: xy.x + 10,
-          top: xy.y - 10,
+          left: xy.x,
+          top: xy.y,
           display: hover.hover ? "block" : "none",
         }}
       >
