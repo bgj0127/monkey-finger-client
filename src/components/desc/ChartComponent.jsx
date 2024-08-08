@@ -151,14 +151,13 @@ const ChartComponent = () => {
           wpm: typing["wpm"][index],
           acc: typing["acc"][index],
           mode: typing["mode"][index],
-          // mode2: typing["mode2"][index],
           language: typing["language"][index],
           date:
             date.getFullYear() +
             "-" +
             dateFormat(date.getMonth()) +
             "-" +
-            dateFormat(date.getDate()) +
+            dateFormat(date.getDate() - 1) +
             " / " +
             dateFormat(date.getHours()) +
             ":" +
