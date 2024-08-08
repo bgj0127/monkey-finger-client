@@ -31,7 +31,7 @@ const Register = () => {
       formData.append("password", inputData.userPw);
       await axios({
         method: "POST",
-        url: apiURL + "/token",
+        url: apiURL + "/user/login",
         headers: {
           "Content-Type": "multipart/form-data",
         },
