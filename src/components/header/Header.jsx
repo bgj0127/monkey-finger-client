@@ -16,7 +16,7 @@ const Header = () => {
       <div
         id="logout_btn"
         onClick={() => {
-          delCookie("userId");
+          delCookie("access_token");
           navgitate("/login");
         }}
       ></div>
