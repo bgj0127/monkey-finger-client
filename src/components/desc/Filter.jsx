@@ -86,7 +86,8 @@ const Filter = () => {
         )
         .then((res) => {
           setTypingData(res.data);
-        });
+        })
+        .catch(() => {});
     };
 
     fetchData();
