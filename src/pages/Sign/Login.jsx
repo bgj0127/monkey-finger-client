@@ -55,26 +55,6 @@ const Register = () => {
         .finally(() => {
           setIsAwait(false);
         });
-
-      // await axios
-      //   .post(apiURL + "/token", { user_id: inputData.userId, user_pw: inputData.userPw })
-      //   .then((res) => {
-      //     setCookie("userId", res.data.userId);
-      //     navigate("/");
-      //     setIsAwait(false);
-      //   })
-      //   .catch((e) => {
-      //     if (e.response?.status === 400) {
-      //       setErrorText("아이디 혹은 비밀번호가 잘못되었습니다.");
-      //     } else if (e.response?.status === 422) {
-      //       setErrorText(e.response.data.detail);
-      //     } else {
-      //       setErrorText("오류가 발생했어요. 잠시 후 다시 시도해주세요.");
-      //     }
-      //   })
-      //   .finally(() => {
-      //     setIsAwait(false);
-      //   });
     };
     login();
   };
