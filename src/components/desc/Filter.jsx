@@ -5,7 +5,6 @@ import { apiURL } from "../../services/url";
 import "../../styles/Search.css";
 import { useRecoilState } from "recoil";
 import { typingData } from "../../recoil/atoms";
-import { useRef } from "react";
 import { SyncLoader } from "react-spinners";
 import ReactMarkDown from "react-markdown";
 import { getCookie } from "../../services/cookie";
@@ -20,7 +19,7 @@ const Filter = () => {
   const [monkey, setMonkey] = useState("");
   const [adviceText, setAdviceText] = useState("");
   const [isComplete, setIsComplete] = useState(true);
-  const isDisableAPI = useRef(false);
+  const [isAPI, setIsAPI] = useState(false);
 
   // 필터 타입에 따른 데이터 설정 다르게 해주는 함수
   const filterSetter = (d, setD, t) => {
@@ -45,15 +44,12 @@ const Filter = () => {
 
   const advice = () => {
     setAdviceText("");
-    if (isDisableAPI.current) return;
-    isDisableAPI.current = true;
     if (typing?.wpm.length == 0) {
       setAdviceText("데이터가 없어 분석할 수 없어요🙈");
-      isDisableAPI.current = false;
       return;
     }
+    setIsAPI(true);
     const getData = async () => {
-      isDisableAPI.current = true;
       await axios
         .post(
           apiURL + "/advice",
@@ -66,11 +62,11 @@ const Filter = () => {
         )
         .then((res) => {
           setMonkey(res.data);
-          isDisableAPI.current = false;
+          setIsAPI(false);
         })
         .catch(() => {
           setAdviceText("다시 시도해주세요🙊");
-          isDisableAPI.current = false;
+          setIsAPI(false);
         });
     };
     getData();
@@ -191,7 +187,7 @@ const Filter = () => {
             </div>
           </div>
         </div>
-        {isDisableAPI.current ? (
+        {isAPI ? (
           <div id="loading" onClick={(e) => e.preventDefault()}>
             <SyncLoader color="rgb(122,111,98" size={10} speedMultiplier="0.5" />
           </div>
