@@ -34,6 +34,7 @@ const Register = () => {
         url: apiURL + "/user/login",
         headers: {
           "Content-Type": "multipart/form-data",
+          withCredentials: true,
         },
         data: formData,
       })
